@@ -52,7 +52,13 @@ const questions=[
 ];let qi=0;
 function renderQuestion(){const q=questions[qi];document.getElementById('questionTitle').textContent=q.q;const box=document.getElementById('questionOptions');box.innerHTML='';q.a.forEach((a,i)=>{const b=document.createElement('button');b.textContent=a;b.onclick=()=>{box.querySelectorAll('button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');document.getElementById('questionAnswer').textContent=q.reply};box.appendChild(b)});document.getElementById('questionAnswer').textContent='Choose whichever feels most like you ♡'}
 function nextQuestion(){qi=(qi+1)%questions.length;renderQuestion()}
-let memories=[{date:'The day we met',title:'Our first hello',text:'A stranger then, one of my favorite people now.',url:''}],mi=0;
+let memories=[
+{date:'The day you first texted me',title:'Our first hello 💌',text:'You asked if we could be friends, and somehow that little message became the beginning of something so precious to me.',url:'memory1.jpg.jpg'},
+{date:'The first time I saw you',title:'The first time I saw you 🌷',text:'A little moment I wanted to keep close, because it became part of our story.',url:'memory2.jpg.jpg'},
+{date:'The moment I realised',title:'When you became important to me 🫶',text:'Somewhere along the way, you stopped being just someone I talked to and became one of my favorite people.',url:'memory3.jpg.jpg'},
+{date:'Our favourite ship',title:'PondPhuwin 🦋',text:'A little space for your favourite duo—and for all the happy things we get to share, even from far away.',url:''}
+],mi=0;
+  
 const fields={date:document.getElementById('memoryDate'),title:document.getElementById('memoryTitle'),text:document.getElementById('memoryText')};
 function loadMemory(){const m=memories[mi];fields.date.value=m.date;fields.title.value=m.title;fields.text.value=m.text;const img=document.getElementById('memoryImage'),ph=document.getElementById('photoPlaceholder');if(m.url){img.src=m.url;img.classList.remove('hidden');ph.classList.add('hidden')}else{img.classList.add('hidden');ph.classList.remove('hidden')}document.getElementById('memoryCount').textContent=`Memory ${mi+1} of ${memories.length}`;document.getElementById('dots').innerHTML=memories.map((_,i)=>`<span class="dot ${i===mi?'active':''}"></span>`).join('');document.getElementById('memorySaved').textContent=m.title?`${m.title} · ${m.date} — ${m.text}`:'Your memory is ready to personalize. ♡';document.getElementById('memoryUpload').value=''}
 function saveMemory(){memories[mi]={...memories[mi],date:fields.date.value||'A special day',title:fields.title.value||'Our memory',text:fields.text.value||'A moment worth keeping.',url:memories[mi].url||''};document.getElementById('memorySaved').textContent='Saved in this page while it stays open: '+memories[mi].title+' · '+memories[mi].date+' ♡'}
